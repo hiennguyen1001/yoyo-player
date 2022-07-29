@@ -7,13 +7,14 @@
 YoYo Video Player is a HLS(.m3u8) video player for flutter.
 The [video_player](https://pub.dev/packages/yoyo_player) is a video player that allows you to select HLS video streaming by selecting the quality. YoYo Player wraps `video_player` under the hood and provides base architecture for developers to create their own set of UI and functionalities.
 
-![Pub Version (including pre-releases)](https://img.shields.io/pub/v/yoyo_player)  
+![Pub Version (including pre-releases)](https://img.shields.io/pub/v/yoyo_player)  !
 
 # Features
 
 * You can select multiple quality and open
 * On video tap play/pause, mute/unmute, or perform any action on video.
 * Auto hide controls.
+* (.srt) Video Subtitle Support
 * (.m3u8) HLS Video Streaming Support
 
 ## Install & Set up
@@ -41,12 +42,12 @@ import 'package:yoyo_player/yoyo_player.dart';
 A simple usage example:
 
 ```dart
-  YoYoPlayer(
+YoYoPlayer(
           aspectRatio: 16 / 9,
           url:  "",
           videoStyle: VideoStyle(),
           videoLoadingStyle: VideoLoadingStyle(),
-  ),
+        ),
 ```
 
 Change Icon
@@ -63,7 +64,7 @@ Change Icon
 
 Change Video Loading
 ```dart
-   videoLoadingStyle: VideoLoadingStyle(loading : Center(child: Text("Loading video")),
+ videoLoadingStyle: VideoLoadingStyle(loading : Center(child: Text("Loading video")),
 ```
 
 Play With Subtitle
@@ -80,6 +81,11 @@ Play With Subtitle
               child: Text("Loading video"),
             ),
           ),
+          //subtitle ( ...srt subtitle link )
+          //example ( subtitle:"https://eboxmovie.sgp1.digitaloceanspaces.com/mmmmtest.srt")
+          subtitle: "",
+          // subtitle style
+          subtitleStyle: SubtitleStyle(),
         ),
 ```
 
@@ -90,11 +96,12 @@ Play With Subtitle
 | Attributes        | Type                | Description                                |
 |-------------------|---------------------|--------------------------------------------|
 | url               | String              | Video source  ( .m3u8 & File only)         |
+| subtitle   Î      | String              | Subtitle (.srt)o source                    |
 | videoStyle        | VideoStyle          | Video Player  style                        |
 | videoLoadingStyle | VideoLoadingStyle   | Video Loading Style                        |
 | aspectRatio       | double              | Video AspectRaitio [aspectRatio : 16 / 9 ] |
+| subtitleStyle     | SubtitleStyle       | Video Subtitle Style                       |
 | onfullscreen      | VideoCallback<bool> | video state fullscreen                     |
-| openingvideo      | VideoCallback<bool> | video type ( eg : mkv,mp4,hls)                    |
 
 
 ## Player custom style (VideoStyle)
@@ -116,35 +123,15 @@ Play With Subtitle
 |------------|--------|----------------------------------------|
 | loading    | Widget | You can use any loading style you want |
 
-<!-- ## Buy Me a Coffee
-
-<a href="https://www.buymeacoffee.com/kohtut" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a> -->
-
-## How is it created ?
-  - The data in the source url (m3u8) is regex checked and the child m3u8 files are created and saved according to the respective rules.
-  - It starts creating child m3u8 files as soon as the video starts playing
-  - Each time a video is completed or the main url changes, child m3u8 files are checked and deleted.
-
-## The child m3u8 files are created as follows:
- - If viedo quality 
-   yoyo[vido-quality].m3u8
-
- - If video quality & audio quality
-   yoyo[video-quality][audio-quality].m3u8
-
-## Support M3U8 
- - #EXT-X-MEDIA
- - #EXT-X-STREAM-INF(not for ios)
-
-## Player Screenshot
-| ![](https://raw.githubusercontent.com/ko-htut/yoyo-player/master/img/ss1.png) | ![](https://raw.githubusercontent.com/ko-htut/yoyo-player/master/img/ss2.png) |
-|:-----------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
-| ![](https://raw.githubusercontent.com/ko-htut/yoyo-player/master/img/ss3.png) | ![](https://raw.githubusercontent.com/ko-htut/yoyo-player/master/img/ss4.png) |
+## Subtitle Style
+| Attributes | Type       | Description                             |
+|------------|------------|-----------------------------------------|
+| fontweight | FontWeight | You can use any Subtitle style you want |
+| colors     | Color      | You can use any Subtitle style you want |
+| background | Color      | You can use any Subtitle style you want |
+| fontSize   | double     | You can use any Subtitle style you want |
 
 
-# Contributors 
-- Min Si Thu
-- Ko Htut
 # MIT License
 
 Copyright (c) 2020 Ko Htut (Ko Min Than Htut)
