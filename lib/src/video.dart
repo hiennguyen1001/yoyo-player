@@ -94,7 +94,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
 
     widgetsBinding.addPostFrameCallback((callback) {
       widgetsBinding.addPersistentFrameCallback((callback) {
-        if (context == null) return;
+        if (!mounted || context == null) return;
         var orientation = MediaQuery.of(context).orientation;
         bool _fullscreen;
         if (orientation == Orientation.landscape) {
@@ -434,6 +434,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
                           controller.value.isInitialized
                               ? subtitle != null ? subtitle.text : ""
                               : "",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: widget.subtitleStyle.fontweight,
                             color: widget.subtitleStyle.colors,
