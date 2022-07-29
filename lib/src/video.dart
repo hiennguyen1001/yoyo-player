@@ -247,6 +247,8 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
         subtitleContent = utf8.decode(response.bodyBytes);
       }
     }
+    if (subtitleContent == null) return Subtitles(subtitles: []);
+
     print(subtitleContent);
 
     List<RegExpMatch> matches = regExp.allMatches(subtitleContent).toList();
