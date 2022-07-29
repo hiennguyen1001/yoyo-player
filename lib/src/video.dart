@@ -179,7 +179,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
       multiLine: true,
     );
     if (m3u8Content == null && widget.url != null) {
-      http.Response response = await http.get(widget.url);
+      http.Response response = await http.get(Uri.parse(widget.url));
       if (response.statusCode == 200) {
         m3u8Content = utf8.decode(response.bodyBytes);
       }
@@ -242,7 +242,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
       multiLine: true,
     );
     if (subtitleContent == null && subtitleUrl != null) {
-      http.Response response = await http.get(subtitleUrl);
+      http.Response response = await http.get(Uri.parse(subtitleUrl));
       if (response.statusCode == 200) {
         subtitleContent = utf8.decode(response.bodyBytes);
       }
@@ -431,7 +431,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
-                          controller.value.initialized
+                          controller.value.isInitialized
                               ? subtitle != null ? subtitle.text : ""
                               : "",
                           style: TextStyle(
@@ -645,7 +645,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
     return AspectRatio(
       aspectRatio:
           fullscreen ? _calculateAspectRatio(context) : widget.aspectRatio,
-      child: controller.value.initialized
+      child: controller.value.isInitialized
           ? Stack(children: videoChildrens)
           : widget.videoLoadingStyle.loading,
     );
@@ -658,8 +658,8 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
   }
 
   void listener() async {
-    if (controller.value.initialized && controller.value.isPlaying) {
-      if (!await Wakelock.isEnabled) {
+    if (controller.value.isInitialized && controller.value.isPlaying) {
+      if (!await Wakelock.enabled) {
         await Wakelock.enable();
       }
       setState(() {
@@ -669,7 +669,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> {
         videoDurationSecond = controller.value.duration.inSeconds.toDouble();
       });
     } else {
-      if (await Wakelock.isEnabled) {
+      if (await Wakelock.enabled) {
         await Wakelock.disable();
         setState(() {});
       }
