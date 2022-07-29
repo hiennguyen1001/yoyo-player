@@ -70,7 +70,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -117,7 +117,7 @@ class _YoYoPlayerState extends State<YoYoPlayer> with WidgetsBindingObserver {
           _yoyoPlayerConfiguration.deviceOrientationsAfterFullScreen);
     }
 
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _controllerEventSubscription?.cancel();
     widget.controller.dispose();
     super.dispose();
